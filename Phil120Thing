@@ -1,0 +1,13 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main(){
+    string statement;
+    cout << "Please enter a logical statement: ";
+    cin  >> statement; 
+    int sLength = statement.length(); 
+
+
+    return 0;
+}
