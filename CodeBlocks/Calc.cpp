@@ -7,7 +7,7 @@ Updates: (What does not not, what needs to be fixed)
 */
 
 #include <iostream>
-#include <math>
+#include <math.h>
 
 using namespace std;
 
@@ -31,10 +31,10 @@ int main() {
         cout << num1*num2 << endl;
         break;
     case '/':
-        cout << pow(num1, num2) << endl;
+        cout << num1/num2 << endl;
         break;
     case '^':
-        cout << num1**num2 << endl;
+        cout << pow(num1, num2) << endl;
         break;
     case '-':
         cout << num1-num2 << endl;
