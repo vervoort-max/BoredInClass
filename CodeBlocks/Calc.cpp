@@ -7,13 +7,14 @@ Updates: (What does not not, what needs to be fixed)
 */
 
 #include <iostream>
+#include <math>
 
 using namespace std;
 
 int main() {
     int num1 = 0;
     int num2 = 0;
-    char op = '';
+    char op = ' ';
 
     cout << "*** Calculator ***" << endl;
     cout << "Please enter the first number: ";
@@ -22,13 +23,30 @@ int main() {
     cin  >> op;
     cout << "\nPlease enter the second number: ";
     cin  >> num2;
-    cout << "Answer: ";
+    cout << "\nAnswer: ";
 
-    switch(op){
-    case '*'
-    case 'x'
-    cout << num1*num2 << endl;
-    break;
+    switch(op) {
+    case '*':
+    case 'x':
+        cout << num1*num2 << endl;
+        break;
+    case '/':
+        cout << pow(num1, num2) << endl;
+        break;
+    case '^':
+        cout << num1**num2 << endl;
+        break;
+    case '-':
+        cout << num1-num2 << endl;
+        break;
+    case '+':
+        cout << num1+num2 << endl;
+        break;
+    case '%':
+        cout << num1%num2 << endl;
+        break;
+    default:
+        cout << "Invalid operation attempted" << endl;
     }
 
     return 0;
