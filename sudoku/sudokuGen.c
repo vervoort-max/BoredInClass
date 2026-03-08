@@ -14,6 +14,9 @@ struct grid {
   struct squares (*square)[3];
 };
 
+int checkRow(const struct grid *g);
+int checkCol(const struct grid *g);
+int validFill(const struct grid *g);
 void fillBox();
 void constructSquare();
 void constructGrid();
@@ -27,3 +30,25 @@ int main(int argc, char *argv){
 
   return 0;
 }
+
+int checkRow(const struct grid *g){
+
+}
+
+int checkCol(const struct grid *g){
+
+}
+
+int validFill(const struct grid *g);
+
+void fillBox();
+
+void constructSquare(){
+
+}
+
+void constructGrid(){
+
+}
+
+void printGrid(const struct grid *finalGrid);
