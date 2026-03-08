@@ -1,19 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct box {
+struct space {
 	int solved;
 	int value;
 };
 
-struct square {
+struct squares {
 	int solved;
-	struct box[3][3];
+	struct space (*box)[3];
 };
 
 struct grid {
 	int solved;
-	struct square[3][3];
+	struct squares (*square)[3];
 };
 
 void readInGrid();
