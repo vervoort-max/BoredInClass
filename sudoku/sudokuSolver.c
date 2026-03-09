@@ -3,13 +3,13 @@
 
 int **readIn();
 int *getLine(int **grid);
-void printGrid(const int **grid);
+void printGrid(int **grid);
 void freeGrid(int **grid);
 void solve(int **grid);
-int checkRow(const int **grid, const int row, const int check);
-int checkCol(const int **grid, const int col, const int check);
-int fillBox(const int **grid, const int row, const int col);
-int countUnsolved(const int **grid);
+int checkRow(int **grid, const int row, const int check);
+int checkCol(int **grid, const int col, const int check);
+int fillBox(int **grid, const int row, const int col);
+int countUnsolved(int **grid);
 
 int main(){
 
@@ -20,7 +20,7 @@ int main(){
 	return 0;
 }
 
-int checkRow(const int **grid, const int row, const int check){
+int checkRow(int **grid, const int row, const int check){
 	for(int i = 0; i < 9; i++){
 		if(grid[row][i] == check){
 			return 0;
@@ -29,7 +29,7 @@ int checkRow(const int **grid, const int row, const int check){
 	return 1;
 }
 
-int checkCol(const int **grid, const int col, const int check){
+int checkCol(int **grid, const int col, const int check){
   for(int i = 0; i < 9; i++){
     if(grid[i][col] == check){
       return 0;
@@ -47,7 +47,7 @@ int *getLine(int **grid){
 
 }
 
-void printGrid(const int **grid){
+void printGrid(int **grid){
 
 }
 
@@ -57,13 +57,20 @@ void freeGrid(int **grid){
 
 void solve(int **grid){
 
-	while(countUnsolved > 0){
-		
+	while(countUnsolved(grid) > 0){
+		for(int i = 0; i < 9; i++){
+			for(int j = 0; j < 9; j++){
+				int num = fillBox(grid, i ,j);
+				if(num != -1){
+					grid[i][j] = num;
+				}
+			}
+		}
 	}
 
 }
 
-int fillBox(const int **grid, const int row, const int col){
+int fillBox(int **grid, const int row, const int col){
 //counter for potential values, if potential values > 1 -> skip
 	int numPotentials = 0;
 	int fillNum = 0;
@@ -82,7 +89,7 @@ int fillBox(const int **grid, const int row, const int col){
 	}
 }
 
-int countUnsolved(const int **grid){
+int countUnsolved(int **grid){
 	int emptyBox = 0;
 
 //The concept is that unsolved boxes will be stored as 0
