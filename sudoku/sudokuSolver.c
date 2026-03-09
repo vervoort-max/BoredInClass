@@ -1,27 +1,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct space {
-	int solved;
-	int value;
-};
-
-struct squares {
-	int solved;
-	struct space (*box)[3];
-};
-
-struct grid {
-	int solved;
-	struct squares (*square)[3];
-};
-
-void readInGrid();
-void constructSquare();
+int **readIn();
+void getLine(int **grid);
+void printGrid(const int **grid);
+void freeGrid(int **grid);
 
 int main(){
 
 
 
 	return 0;
+}
+
+
+int **readIn(){
+	int **grid = malloc(9*sizeof(int*));
+
+}
+
+void getLine(int **grid){
+
+}
+
+void printGrid(const int **grid){
+
+}
+
+void freeGrid(int **grid){
+
 }
