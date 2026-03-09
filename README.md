@@ -1,4 +1,4 @@
 # Bored in Class Projects
 
-Currently Working On: Sudoku Grid Generator and Sudoku Solver in C
+Currently Working On: Sudoku Grid Generator and Sudoku Solver in C \n
 Purpose: To practice my C skills before my CMPUT 275 midterm. 
