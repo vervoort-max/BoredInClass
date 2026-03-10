@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int **readIn();
-int *getLine(int **grid);
+int *getLine();
 void printGrid(int **grid);
 void freeGrid(int **grid);
 void solve(int **grid);
@@ -14,8 +14,9 @@ int countUnsolved(int **grid);
 int main(){
 
 	int **grid = readIn();
-
-
+	solve(grid);
+	printGrid(grid);
+	freeGrid(grid);
 
 	return 0;
 }
@@ -40,14 +41,29 @@ int checkCol(int **grid, const int col, const int check){
 
 int **readIn(){
 	int **grid = malloc(9*sizeof(int*));
-
+	for(int i = 0; i < 9; i++){
+		grid[i] = getLine();
+	}
+	return grid;
 }
 
-int *getLine(int **grid){
-
+int *getLine(){
+	int *line = malloc(9*sizeof(int));
+	for(int i = 0; i < 9; i++){
+		scanf("%d", &line[i]);
+	}
+	return line;
 }
 
 void printGrid(int **grid){
+	printf("--- --- --- --- --- --- --- --- ---\n");
+	for(int i = 0; i < 9; i++){
+		printf("| ");
+		for(int j = 0; j < 9; j++){
+			printf("%d |", grid[i][j]);
+		}
+		printf("--- --- --- --- --- --- --- --- ---\n");
+	}
 
 }
 
@@ -56,18 +72,18 @@ void freeGrid(int **grid){
 }
 
 void solve(int **grid){
-
-	while(countUnsolved(grid) > 0){
+	while(countUnsolved(grid) > 10){
 		for(int i = 0; i < 9; i++){
 			for(int j = 0; j < 9; j++){
-				int num = fillBox(grid, i ,j);
-				if(num != -1){
-					grid[i][j] = num;
+				if(grid[i][j] == 0){
+					int num = fillBox(grid, i, j);
+					if(num != -1){
+          	grid[i][j] = num;
+        	}
 				}
 			}
 		}
 	}
-
 }
 
 int fillBox(int **grid, const int row, const int col){
@@ -75,7 +91,7 @@ int fillBox(int **grid, const int row, const int col){
 	int numPotentials = 0;
 	int fillNum = 0;
 
-	for(int i = 0; i < 9; i++){
+	for(int i = 1; i <= 9; i++){
 		if(checkRow(grid, row, i) && checkCol(grid, col, i)){
 			++numPotentials;
 			fillNum = i;
@@ -93,11 +109,10 @@ int countUnsolved(int **grid){
 	int emptyBox = 0;
 
 //The concept is that unsolved boxes will be stored as 0
-
 	for(int i = 0; i < 9; i++){
 		for(int j = 0; j < 9; j++){
 			if(grid[i][j] == 0){
-				++emptyBox;
+				emptyBox++;
 			}
 		}
 	}
