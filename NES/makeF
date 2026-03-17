@@ -1,0 +1,4 @@
+run:
+    ca65 src/main.asm -o main.o
+    ld65 main.o -C nes.cfg -o game.nes
+    fceux game.nes
