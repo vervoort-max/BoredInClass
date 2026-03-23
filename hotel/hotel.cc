@@ -2,6 +2,15 @@
 #include <sqlite3.h>
 using namespace std;
 
+//Should I do an update struct?
+struct Update{
+	int cap;
+	char *occu;
+	float price;
+	Update(int cap, char *occu, float price) : cap{cap},
+    occu{occu}, price{price} {}
+};
+
 int callback(void *NotUsed, int argc, char **argv, char **azColName);
 void makeDB(sqlite3 *db);
 void createTable(sqlite3 *db);
@@ -11,6 +20,7 @@ void billing();
 void fullReport(sqlite3 *db);
 void menu(sqlite3 *db);
 void menuPrint();
+void operate(sqlite3 *db);
 
 int main(){
 	sqlite3 *db;
@@ -22,8 +32,10 @@ int main(){
 		char *dbName;
 		cout << "Enter the database name (ex. exampleDB.db): ";
 		cin >> dbName;
+		sqlite3_open(dbName, &db);
+		operate(db);
 	} else {
-		makeDB(db); //If there is no prexisting database
+		makeDB(db);
 	}
 
 	sqlite3_close(db);
@@ -35,7 +47,7 @@ int menu(){
 	menuPrint();
 	cin >> choice;
 	while(choice > 5 || choice < 1){
-		cout << "Invalid Input" << endl;
+		cout << "\nInvalid Input" << endl;
 		menuPrint();
 		cin >> choice;
 	}
@@ -86,7 +98,30 @@ void createTable(sqlite3 *db){
 
 }
 
-void booking();
+int checkRoomExists(const int floor, const int num, sqlite3 *db){
+
+
+	return 0;
+}
+
+void booking(sqlite3 *db){
+	char *sql;
+	int num, floor;
+	char *name;
+	char c;
+	cout << "Enter Room (ex. 2 01 <- Level 2, Number 1): ";
+	cin >> floor >> c >> num;
+	while(!checkRoomExists(floor, num db)){
+		cout << "Room does not exist" << endl;
+		cout << "Enter Room (ex. 2 01 <- Level 2, Number 1): ";
+  	cin >> floor >> c >> num;
+	}
+
+	cout << "Enter Occupant Name: ";
+	cin >> name;
+	Update newBooking(floor, num, name);
+}
+
 void maintenance();
 void billing(){
 
