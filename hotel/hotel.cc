@@ -11,6 +11,7 @@ struct Update{
     occu{occu}, price{price} {}
 };
 
+int checkRoomExists(const int floor, const int num, sqlite3 *db);
 int callback(void *NotUsed, int argc, char **argv, char **azColName);
 void makeDB(sqlite3 *db);
 void createTable(sqlite3 *db);
@@ -111,7 +112,7 @@ void booking(sqlite3 *db){
 	char c;
 	cout << "Enter Room (ex. 2 01 <- Level 2, Number 1): ";
 	cin >> floor >> c >> num;
-	while(!checkRoomExists(floor, num db)){
+	while(!checkRoomExists(floor, num, db)){
 		cout << "Room does not exist" << endl;
 		cout << "Enter Room (ex. 2 01 <- Level 2, Number 1): ";
   	cin >> floor >> c >> num;
@@ -119,7 +120,7 @@ void booking(sqlite3 *db){
 
 	cout << "Enter Occupant Name: ";
 	cin >> name;
-	Update newBooking(floor, num, name);
+	Update newBooking(0, name, 0);
 }
 
 void maintenance();
