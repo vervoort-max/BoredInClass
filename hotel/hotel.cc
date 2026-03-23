@@ -8,8 +8,9 @@ void createTable(sqlite3 *db);
 void booking();
 void maintenance();
 void billing();
-void printReport();
+void fullReport(sqlite3 *db);
 void menu(sqlite3 *db);
+void menuPrint();
 
 int main(){
 	sqlite3 *db;
@@ -29,19 +30,24 @@ int main(){
 	return 0;
 }
 
-void menu(sqlite3 *db){
+int menu(){
 	int choice;
-	cout << "" << endl;
-	cout << "" << endl;
-	switch(choice){
+	menuPrint();
+	cin >> choice;
+	while(choice > 5 || choice < 1){
+		cout << "Invalid Input" << endl;
+		menuPrint();
+		cin >> choice;
+	}
+	return choice;
+}
+
+void operate(sqlite3 *db){
+	int operation;
+	operation = menu();
+	switch(operation){
 	case 1:
-
-		break;
-	case 2:
-
-		break;
-	case 3:
-
+		fullReport(db);
 		break;
 	}
 }
@@ -82,8 +88,13 @@ void createTable(sqlite3 *db){
 
 void booking();
 void maintenance();
-void billing();
-void printReport();
+void billing(){
+
+}
+
+void fullReport(sqlite3 *db){
+
+}
 
 int callback(void *NotUsed, int argc, char **argv, char **azColName) {
    int i;
@@ -92,4 +103,15 @@ int callback(void *NotUsed, int argc, char **argv, char **azColName) {
    }
    printf("\n");
    return 0;
+}
+
+void menuPrint(){
+	cout << "            *** ACTIONS ***           " << endl;
+	cout << "======================================" << endl;
+	cout << "1. Full Report" << endl;
+	cout << "2. Booking" << endl;
+	cout << "3. Billing" << endl;
+	cout << "4. Maintenance" << endl;
+	cout << "======================================" << endl;
+	cout << "Please make a selection: ";
 }
