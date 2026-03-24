@@ -6,12 +6,14 @@ class Hotel {
   	int cap;
   	char *occu;
   	float price;
-  	Update(int cap, char *occu, float price) : cap{cap},
-    	occu{occu}, price{price} {}
+    ~Update();
 	};
+	sqlite3 *db;
+	char *fileName;
 	public:
+	Hotel() : db{nullptr} {}
 	int checkRoomExists(const int floor, const int num, sqlite3 *db);
-	int callback(void *NotUsed, int argc, char **argv, char **azColName);
+	int callback(int argc, char **argv, char **azColName);
 	void makeDB(sqlite3 *db);
 	void createTable(sqlite3 *db);
 	void booking(sqlite3 *db);

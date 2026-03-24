@@ -1,8 +1,11 @@
 #include <iostream>
 #include <sqlite3.h>
 #include "hotel.h"
-
 using namespace std;
+
+Hotel::Update::~Update(){
+	delete this;
+}
 
 void Hotel::makeDB(sqlite3 *db){
   int rc;
@@ -74,7 +77,7 @@ void Hotel::fullReport(sqlite3 *db){
 
 }
 
-int Hotel::callback(void *NotUsed, int argc, char **argv, char **azColName) {
+int Hotel::callback(int argc, char **argv, char **azColName) {
    int i;
    for(i = 0; i<argc; i++) {
       printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
