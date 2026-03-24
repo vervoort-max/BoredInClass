@@ -43,9 +43,16 @@ void Hotel::createTable(sqlite3 *db){
 }
 
 int Hotel::checkRoomExists(const int floor, const int num, sqlite3 *db){
-
-
-  return 0;
+	const char *sql = "SELECT * FROM TABLE WHEN LEVEL = ? AND NUMBER = ?";
+	sqlite3_stmt* stmt = nullptr;
+	sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
+	sqlite3_bind_int(stmt, 1, floor);
+	sqlite3_bind_int(stmt, 2, num);
+	if(sqlite3_step(stmt) == SQLITE_ROW){
+		return 1;
+	}else {
+	return 0;
+	}
 }
 
 void Hotel::booking(sqlite3 *db){
