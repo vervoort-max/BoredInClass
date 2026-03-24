@@ -7,8 +7,6 @@ Hotel::Update::~Update(){
 	delete this;
 }
 
-Hotel::Update::Update(int cap, char *name, float price) : cap{cap}, name{name}, price{price} {}
-
 void Hotel::makeDB(sqlite3 *db){
   int rc;
   char *zErrMsg = 0;
@@ -80,11 +78,11 @@ void Hotel::fullReport(sqlite3 *db){
 
 }
 
-static int Hotel::callback(void *data, int argc, char **argv, char **azColName) {
-   int i;
-   for(i = 0; i<argc; i++) {
-      printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
-   }
-   printf("\n");
-   return 0;
+int Hotel::callback(void *notUsed, int argc, char **argv, char **azColName){
+	int i;
+	for(i = 0; i < argc; ++i){
+		printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+	}
+	cout << endl;
+	return 0;
 }

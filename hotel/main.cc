@@ -3,27 +3,28 @@
 #include "hotel.h"
 using namespace std;
 
-void menu(sqlite3 *db);
+int menu();
 void menuPrint();
-void operate(sqlite3 *db);
+void operate(Hotel h);
 
 int main(){
-	sqlite3 *db;
+	Hotel h;
 	char c;
 	cout << "Do you have a hotel database already? (y/n): ";
 	cin >> c;
 
+//This could also be in the class??
 	if(c == 'y' || c == 'Y'){
 		char *dbName;
 		cout << "Enter the database name (ex. exampleDB.db): ";
 		cin >> dbName;
-		sqlite3_open(dbName, &db);
-		operate(db);
+		sqlite3_open(dbName, &h.db);
+		operate(h.db);
 	} else {
-		makeDB(db);
+		h.makeDB(h.db);
 	}
 
-	sqlite3_close(db);
+	sqlite3_close(h.db); //This could be in the class
 	return 0;
 }
 
@@ -39,90 +40,14 @@ int menu(){
 	return choice;
 }
 
-void operate(sqlite3 *db){
+void operate(Hotel h){
 	int operation;
 	operation = menu();
 	switch(operation){
 	case 1:
-		fullReport(db);
+		h.fullReport(h.db);
 		break;
 	}
-}
-
-void makeDB(sqlite3 *db){
-  int rc;
-  char *zErrMsg = 0;
-  rc = sqlite3_open("test.db", &db);
-  if(rc){
-    cout << "Can not open hotel database\n" << sqlite3_errmsg(db);
-  } else {
-    cout << "Opened hotel database successfully\n";
-  }
-  createTable(db);
-}
-
-void createTable(sqlite3 *db){
-	int rc;
-	char *zErrMsg = 0;
-	const char* sql;
-  sql = "CREATE TABLE ROOM(" \
-  "ID INT PRIMARY KEY NOT NULL," \
-  "LEVEL INT NOT NULL," \
-  "NUMBER INT NOT NULL," \
-  "CAPACITY INT NOT NULL," \
-  "PRICE REAL NOT NULL," \
-  "OCCUPIED TEXT);";
-  rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
-	cout << rc << endl;
-	if(rc != SQLITE_OK){
-		cout << "SQL Error: " << zErrMsg << endl;
-		sqlite3_free(zErrMsg);
-	}	else{
-		cout << "Table created successfully" << endl;
-	}
-
-}
-
-int checkRoomExists(const int floor, const int num, sqlite3 *db){
-
-
-	return 0;
-}
-
-void booking(sqlite3 *db){
-	char *sql;
-	int num, floor;
-	char *name;
-	char c;
-	cout << "Enter Room (ex. 2 01 <- Level 2, Number 1): ";
-	cin >> floor >> c >> num;
-	while(!checkRoomExists(floor, num, db)){
-		cout << "Room does not exist" << endl;
-		cout << "Enter Room (ex. 2 01 <- Level 2, Number 1): ";
-  	cin >> floor >> c >> num;
-	}
-
-	cout << "Enter Occupant Name: ";
-	cin >> name;
-	Update newBooking(0, name, 0);
-}
-
-void maintenance();
-void billing(){
-
-}
-
-void fullReport(sqlite3 *db){
-
-}
-
-int callback(void *NotUsed, int argc, char **argv, char **azColName) {
-   int i;
-   for(i = 0; i<argc; i++) {
-      printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
-   }
-   printf("\n");
-   return 0;
 }
 
 void menuPrint(){
