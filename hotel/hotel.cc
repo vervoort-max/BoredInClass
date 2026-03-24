@@ -7,6 +7,8 @@ Hotel::Update::~Update(){
 	delete this;
 }
 
+Hotel::Update::Update(int cap, char *name, float price) : cap{cap}, name{name}, price{price} {}
+
 void Hotel::makeDB(sqlite3 *db){
   int rc;
   char *zErrMsg = 0;
@@ -23,6 +25,7 @@ void Hotel::createTable(sqlite3 *db){
   int rc;
   char *zErrMsg = 0;
   const char* sql;
+  const char* data = "Callback Called";
   sql = "CREATE TABLE ROOM(" \
   "ID INT PRIMARY KEY NOT NULL," \
   "LEVEL INT NOT NULL," \
@@ -30,7 +33,7 @@ void Hotel::createTable(sqlite3 *db){
   "CAPACITY INT NOT NULL," \
   "PRICE REAL NOT NULL," \
   "OCCUPIED TEXT);";
-  rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
+  rc = sqlite3_exec(db, sql, callback, (void*)data, &zErrMsg);
   cout << rc << endl;
   if(rc != SQLITE_OK){
     cout << "SQL Error: " << zErrMsg << endl;
@@ -77,7 +80,7 @@ void Hotel::fullReport(sqlite3 *db){
 
 }
 
-int Hotel::callback(int argc, char **argv, char **azColName) {
+static int Hotel::callback(void *data, int argc, char **argv, char **azColName) {
    int i;
    for(i = 0; i<argc; i++) {
       printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
